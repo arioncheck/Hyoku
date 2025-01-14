@@ -117,7 +117,7 @@ class Database(dict):
                 "hikka-assets",
                 "🌆 Your Hikka assets will be stored here",
                 archive=True,
-                avatar="https://raw.githubusercontent.com/hikariatama/assets/master/hikka-assets.png",
+                avatar="https://0x0.st/s/Yd5FYeoKDWdpSkP7C8xMyw/8oTo.jpg",
             )
         except ChannelsTooMuchError:
             self._assets = None
