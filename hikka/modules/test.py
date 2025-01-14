@@ -371,7 +371,7 @@ class TestMod(loader.Module):
             "🌘 Your Hikka logs will appear in this chat",
             silent=True,
             invite_bot=True,
-            avatar="https://github.com/hikariatama/assets/raw/master/hikka-logs.png",
+            avatar="https://0x0.st/s/4OouUG0wGcqb5Md_nzXOyQ/8oTi.jpg",
         )
 
         self.logchat = int(f"-100{chat.id}")
