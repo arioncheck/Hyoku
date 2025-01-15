@@ -19,7 +19,7 @@ class HelpMod(loader.Module):
 
         for module in modules:
             name = module.strings.get("name", "Unknown")
-            emoji = "<emoji document_id=5931588842116091655>🗻</emoji>"
+            emoji = "<emoji document_id=5400073337722388923>🗻</emoji>"
             commands = []
             for cmd_name, cmd_func in module.commands.items():
                 if not cmd_func:
