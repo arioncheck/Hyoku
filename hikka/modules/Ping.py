@@ -25,7 +25,7 @@ class PingMod(loader.Module):
             {uptime} - Аптайм
             """,
             "custom_ping_photo",
-            "https://0x0.st/s/2EJW1BlwTOe4VKY_GN_Fkg/8o2c.jpg",
+            "https://0x0.st/s/4GGiwtUrYOXsufLu9mB3Sw/8o2V.jpg",
             "URL фото"
         )
 
