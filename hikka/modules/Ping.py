@@ -16,15 +16,17 @@ class PingMod(loader.Module):
     def __init__(self):
         self.config = loader.ModuleConfig(
             "ping_text",
-            "<emoji document_id=5400073337722388923>🗻</emoji><b>user:</b> {me}\n\n"
-            "<emoji document_id=5400073337722388923>🗻</emoji><b>ping:</b> {ping}\n"
-            "<emoji document_id=5400073337722388923>🗻</emoji><b>uptime:</b> {uptime}",
+            "<emoji document_id=5400073337722388923>🗻</emoji><b>Userbot:</b> {me}\n\n"
+            "<emoji document_id=5400073337722388923>🗻</emoji><b>Ping:</b> {ping} ms\n"
+            "<emoji document_id=5400073337722388923>🗻</emoji><b>Uptime:</b> {uptime}",
             """
-
-            {me} - name
-            {ping} - ping
-            {uptime} - uptime
-            """
+            {me} - Имя пользователя,
+            {ping} - Пинг,
+            {uptime} - Аптайм
+            """,
+            "custom_ping_photo",
+            "https://0x0.st/s/2EJW1BlwTOe4VKY_GN_Fkg/8o2c.jpg",
+            "URL фото"
         )
 
     @loader.command()
@@ -35,21 +37,41 @@ class PingMod(loader.Module):
         ping = round((time.perf_counter_ns() - start) / 10**6, 3)
         await msg.delete()
 
+        me = await self.client.get_me()
+
         info = self.config["ping_text"].format(
-            me=self._client.hikka_me.first_name + ' ' + (self._client.hikka_me.last_name or ''),
+            me=me.first_name + ' ' + (me.last_name or ''),
             ping=ping,
             uptime=utils.formatted_uptime(),
         )
-
-        await utils.answer(message, info)
+        
+        if self.config["custom_ping_photo"] and self.config["custom_ping_photo"] != "None":
+            await self.client.send_file(
+                message.peer_id,
+                self.config["custom_ping_photo"],
+                caption=info
+            )
+        else:
+            await utils.answer(message, info)
 
     @loader.command()
     async def setping(self, message):
-        """кастом текст"""
+        """Установить кастомный текст пинга: .setping <текст>"""
         args = utils.get_args_raw(message)
         if not args:
-            await utils.answer(message, "укажите текст")
+            await utils.answer(message, "Укажите текст")
             return
 
-        self.config["custom_ping_text"] = args
-        await utils.answer(message, "Ping - текст поставлен</b>")
+        self.config["ping_text"] = args
+        await utils.answer(message, "Ping - текст поставлен")
+
+    @loader.command()
+    async def setpingphoto(self, message):
+      """Установить фото"""
+      args = utils.get_args_raw(message)
+      if not args:
+        await utils.answer(message, "<b>Укажите ссылку</b>")
+        return
+      
+      self.config["custom_ping_photo"] = args
+      await utils.answer(message, "<b>Ссылка поставлена</b>")
